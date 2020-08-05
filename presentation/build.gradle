@@ -17,7 +17,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -57,4 +57,9 @@ dependencies {
     implementation presentationDependencies.fragmentKtx
     implementation presentationDependencies.rxJava
     implementation presentationDependencies.rxAndroid
+    implementation presentationDependencies.gson
+    implementation presentationDependencies.room
+    implementation presentationDependencies.roomRx
+    kapt           presentationDependencies.roomCompiler
+    implementation presentationDependencies.stetho
 }
