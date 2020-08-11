@@ -8,17 +8,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.thanht.foodyentrytask.home.HomeActivity
 import com.thanht.foodyentrytask.R
-import com.thanht.foodyentrytask.ext.userComponent
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_login.*
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
 
     @Inject
     lateinit var loginViewModel: LoginViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        userComponent().inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         initEvents()

@@ -4,13 +4,14 @@ import android.content.Context
 import androidx.room.Room
 import com.thanht.domain.database.DatabaseManager
 import com.thanht.domain.model.CityModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.Completable
 import io.reactivex.Single
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class DatabaseManagerImpl @Inject constructor(context: Context) : DatabaseManager {
+class DatabaseManagerImpl @Inject constructor(@ApplicationContext context: Context) : DatabaseManager {
     private val database: AppDatabase = Room.databaseBuilder(
         context.applicationContext,
         AppDatabase::class.java,

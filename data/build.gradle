@@ -47,8 +47,10 @@ dependencies {
     implementation dataDependencies.kotlin
     implementation dataDependencies.room
     implementation dataDependencies.roomRx
-    kapt           dataDependencies.roomCompiler
+    kapt dataDependencies.roomCompiler
     implementation dataDependencies.roomCoroutine
+    implementation dataDependencies.hilt
+    kapt dataDependencies.hiltCompiler
 
 }
 

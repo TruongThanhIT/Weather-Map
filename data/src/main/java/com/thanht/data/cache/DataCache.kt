@@ -2,11 +2,12 @@ package com.thanht.data.cache
 
 import android.content.Context
 import android.content.SharedPreferences
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 private const val FILE_NAME = "xml_cache"
 private const val IS_USER_LOG_IN = "is_logged"
-class DataCache @Inject constructor(context: Context) {
+class DataCache @Inject constructor(@ApplicationContext context: Context) {
 
     private val sharedPreferences: SharedPreferences =
         context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE)

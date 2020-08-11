@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
 
 android {
     def globalConfiguration = rootProject.extensions.getByName("ext")
@@ -60,6 +61,10 @@ dependencies {
     implementation presentationDependencies.gson
     implementation presentationDependencies.room
     implementation presentationDependencies.roomRx
-    kapt           presentationDependencies.roomCompiler
+    kapt presentationDependencies.roomCompiler
     implementation presentationDependencies.stetho
+    implementation presentationDependencies.hilt
+    kapt presentationDependencies.hiltCompiler
+    implementation presentationDependencies.hiltViewModel
+    kapt presentationDependencies.hiltViewModelCompiler
 }
