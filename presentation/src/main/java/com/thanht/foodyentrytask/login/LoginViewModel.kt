@@ -26,7 +26,6 @@ class LoginViewModel @Inject constructor(
 
     fun login(userName: String, password: String) {
         loginUserCase.apply {
-            unsubscribe()
             setParams(userName, password)
             execute(object : DisposableObserver<LoggedInUser>() {
                 override fun onComplete() {

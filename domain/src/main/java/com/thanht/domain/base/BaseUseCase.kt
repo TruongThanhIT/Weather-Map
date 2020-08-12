@@ -12,8 +12,10 @@ abstract class BaseUseCase<T> {
 
     fun execute(
         useCaseSubscriber: DisposableObserver<T>,
-        taskSchedulers: TaskSchedulers
+        taskSchedulers: TaskSchedulers,
+        isAutoUnsubscribe: Boolean = true
     ): Disposable {
+        if (isAutoUnsubscribe) unsubscribe()
         disposable = completeObservable(taskSchedulers).subscribeWith(useCaseSubscriber)
         return disposable
     }
@@ -22,7 +24,8 @@ abstract class BaseUseCase<T> {
         if (disposable.isDisposed.not()) disposable.dispose()
     }
 
-    private fun completeObservable(taskSchedulers: TaskSchedulers): Observable<T> = buildObservable()
-        .subscribeOn(taskSchedulers.getIOThread())
-        .observeOn(taskSchedulers.getMainThread())
+    private fun completeObservable(taskSchedulers: TaskSchedulers): Observable<T> =
+        buildObservable()
+            .subscribeOn(taskSchedulers.getIOThread())
+            .observeOn(taskSchedulers.getMainThread())
 }

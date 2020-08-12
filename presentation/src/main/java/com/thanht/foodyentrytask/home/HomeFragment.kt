@@ -51,7 +51,7 @@ class HomeFragment : Fragment() {
                 showError(errorMsg)
             }
             cityListResult.success?.let { data ->
-                adapter.setData(data)
+                adapter.submitList(data)
             }
         })
         cityListViewModel.getListCity()

@@ -1,10 +1,11 @@
 package com.thanht.data.database
 
-import androidx.room.*
-import com.thanht.data.database.CityEntity
-import com.thanht.domain.model.CityModel
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import io.reactivex.Completable
-import io.reactivex.Single
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CityDao {
@@ -12,7 +13,7 @@ interface CityDao {
     suspend fun getAll(): List<CityEntity>
 
     @Query("SELECT * FROM city WHERE city_name LIKE :keyword")
-    suspend fun searchCity(keyword: String): List<CityEntity>
+    fun searchCity(keyword: String): Flow<List<CityEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(cityEntity: List<CityEntity>): Completable
