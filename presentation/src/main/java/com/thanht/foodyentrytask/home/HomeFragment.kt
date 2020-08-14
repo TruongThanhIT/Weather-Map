@@ -10,8 +10,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
-import com.thanht.foodyentrytask.R
+import com.thanht.foodyentrytask.databinding.FragmentHomeBinding
 import com.thanht.foodyentrytask.home.list.CityListAdapter
 import com.thanht.foodyentrytask.home.list.CityListViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,20 +25,25 @@ class HomeFragment : Fragment() {
     @Inject
     lateinit var cityListViewModel: CityListViewModel
 
-    private val adapter = CityListAdapter()
+    private val adapter: CityListAdapter = CityListAdapter()
 
     private lateinit var textWatcher: TextWatcher
+
+    private lateinit var binding: FragmentHomeBinding
+
+    private lateinit var recyclerview: RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        binding = FragmentHomeBinding.inflate(inflater, container, false).apply {
+            lifecycleOwner = viewLifecycleOwner
+            viewModel = cityListViewModel
+        }
+        recyclerview = binding.rvCity
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -92,10 +98,10 @@ class HomeFragment : Fragment() {
     }
 
     private fun initUI() {
-        rv_city.apply {
+        recyclerview.apply {
+            adapter = this@HomeFragment.adapter
             layoutManager = LinearLayoutManager(context)
             (itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
-            adapter = this@HomeFragment.adapter
         }
     }
 }

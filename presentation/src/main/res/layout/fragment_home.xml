@@ -1,42 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/bg_color"
-    android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/actionBarSize"
-        android:background="@color/colorPrimaryDark"
-        android:gravity="center"
-        android:text="@string/select_province_city"
-        android:textColor="@color/bg_color"
-        android:textSize="@dimen/text_title" />
+    <data>
 
-    <EditText
-        android:id="@+id/et_city"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/padding_start_end"
-        android:layout_marginTop="@dimen/margin_top"
-        android:layout_marginEnd="@dimen/padding_start_end"
-        android:layout_marginBottom="@dimen/margin_top"
-        android:autofillHints=""
-        android:background="@drawable/bg_search"
-        android:drawableStart="@drawable/ic_search"
-        android:drawablePadding="@dimen/padding_normal"
-        android:hint="@string/input_province_city"
-        android:inputType="text"
-        android:padding="@dimen/margin_top"
-        android:textColor="@color/bg_color"
-        android:textColorHint="@color/color_hint"
-        android:textSize="@dimen/text_size" />
+        <variable
+            name="viewModel"
+            type="com.thanht.foodyentrytask.home.list.CityListViewModel" />
+    </data>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_city"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:listitem="@layout/item_city" />
-</LinearLayout>
+        android:layout_height="match_parent"
+        android:background="@color/bg_color"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/actionBarSize"
+            android:background="@color/colorPrimaryDark"
+            android:gravity="center"
+            android:text="@string/select_province_city"
+            android:textColor="@color/bg_color"
+            android:textSize="@dimen/text_title" />
+
+        <EditText
+            android:id="@+id/et_city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding_start_end"
+            android:layout_marginTop="@dimen/margin_top"
+            android:layout_marginEnd="@dimen/padding_start_end"
+            android:layout_marginBottom="@dimen/margin_top"
+            android:autofillHints=""
+            android:background="@drawable/bg_search"
+            android:drawableStart="@drawable/ic_search"
+            android:drawablePadding="@dimen/padding_normal"
+            android:hint="@{@string/search_city_hint(viewModel.cityListResult.success.size())}"
+            android:inputType="text"
+            android:padding="@dimen/margin_top"
+            android:textColor="@color/bg_color"
+            android:textColorHint="@color/color_hint"
+            android:textSize="@dimen/text_size"
+            tools:hint="Search in 10 province/city" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/item_city" />
+    </LinearLayout>
+</layout>

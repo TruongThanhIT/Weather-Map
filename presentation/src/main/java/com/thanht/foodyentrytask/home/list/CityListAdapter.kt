@@ -2,15 +2,15 @@ package com.thanht.foodyentrytask.home.list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import com.thanht.foodyentrytask.R
+import com.thanht.foodyentrytask.databinding.ItemCityBinding
 
 class CityListAdapter : ListAdapter<CityInfo, CityListHolder>(DIFF_CALLBACK) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CityListHolder {
-        return CityListHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.item_city, parent, false)
-        )
+        val binding = ItemCityBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return CityListHolder(binding)
     }
 
     override fun onBindViewHolder(holder: CityListHolder, position: Int) {
