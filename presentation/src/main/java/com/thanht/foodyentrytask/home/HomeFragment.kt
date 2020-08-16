@@ -9,9 +9,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
+import com.thanht.foodyentrytask.EventObserver
 import com.thanht.foodyentrytask.databinding.FragmentHomeBinding
 import com.thanht.foodyentrytask.home.list.CityListAdapter
 import com.thanht.foodyentrytask.home.list.CityListViewModel
@@ -25,7 +27,7 @@ class HomeFragment : Fragment() {
     @Inject
     lateinit var cityListViewModel: CityListViewModel
 
-    private val adapter: CityListAdapter = CityListAdapter()
+    private lateinit var adapter: CityListAdapter
 
     private lateinit var textWatcher: TextWatcher
 
@@ -50,15 +52,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initUI()
         initEvents()
-        cityListViewModel.cityListResult.observe(requireActivity(), Observer {
-            val cityListResult = it ?: return@Observer
-            cityListResult.error?.let { errorMsg ->
-                showError(errorMsg)
-            }
-            cityListResult.success?.let { data ->
-                adapter.submitList(data)
-            }
-        })
+        observeViewModels()
         cityListViewModel.getListCity()
     }
 
@@ -70,6 +64,22 @@ class HomeFragment : Fragment() {
     override fun onPause() {
         super.onPause()
         et_city.removeTextChangedListener(textWatcher)
+    }
+
+    private fun observeViewModels() {
+        cityListViewModel.cityListResult.observe(viewLifecycleOwner, Observer {
+            val cityListResult = it ?: return@Observer
+            cityListResult.error?.let { errorMsg ->
+                showError(errorMsg)
+            }
+            cityListResult.success?.let { data ->
+                adapter.submitList(data)
+            }
+        })
+
+        cityListViewModel.navigateToCityDetail.observe(viewLifecycleOwner, EventObserver { navDirections ->
+            findNavController().navigate(navDirections)
+        })
     }
 
     private fun initEvents() {
@@ -98,6 +108,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun initUI() {
+        adapter = CityListAdapter(cityListViewModel, viewLifecycleOwner)
         recyclerview.apply {
             adapter = this@HomeFragment.adapter
             layoutManager = LinearLayoutManager(context)

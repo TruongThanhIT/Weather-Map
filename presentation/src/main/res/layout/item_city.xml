@@ -6,6 +6,9 @@
         <variable
             name="cityInfo"
             type="com.thanht.foodyentrytask.home.list.CityInfo" />
+        <variable
+            name="viewmodel"
+            type="com.thanht.foodyentrytask.home.list.CityListViewModel" />
     </data>
 
     <TextView
@@ -13,6 +16,7 @@
         android:id="@+id/tv_city_name"
         android:layout_height="wrap_content"
         android:textColor="@color/colorAccent"
+        android:onClick="@{() -> viewmodel.navigateToDetail(cityInfo.id)}"
         android:drawableStart="@drawable/ic_place"
         android:drawablePadding="@dimen/padding_small"
         android:paddingStart="@dimen/padding_normal"

@@ -6,11 +6,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavDirections
 import com.thanht.domain.base.TaskSchedulers
 import com.thanht.domain.city.CityListUseCase
 import com.thanht.domain.city.SaveCityListUseCase
 import com.thanht.domain.city.SearchCityListUseCase
 import com.thanht.domain.model.CityModel
+import com.thanht.foodyentrytask.Event
+import com.thanht.foodyentrytask.home.HomeFragmentDirections
 import com.thanht.foodyentrytask.util.toCityInfoList
 import io.reactivex.observers.DisposableObserver
 import kotlinx.coroutines.*
@@ -30,6 +33,9 @@ class CityListViewModel @Inject constructor(
 
     private val _cityListResult = MutableLiveData<CityListResult>()
     val cityListResult: LiveData<CityListResult> = _cityListResult
+
+    private val _navigateToCityDetail = MutableLiveData<Event<NavDirections>>()
+    val navigateToCityDetail: LiveData<Event<NavDirections>> = _navigateToCityDetail
 
     private var searchJob: Job? = null
 
@@ -69,6 +75,13 @@ class CityListViewModel @Inject constructor(
                     _cityListResult.value = CityListResult(error = "Empty City List")
                 }
             }
+        }
+    }
+
+    fun navigateToDetail(cityId: Long) {
+        if (cityId > 0) {
+            val directions = HomeFragmentDirections.toCityDetailFragment(cityId)
+            _navigateToCityDetail.value = Event(directions)
         }
     }
 

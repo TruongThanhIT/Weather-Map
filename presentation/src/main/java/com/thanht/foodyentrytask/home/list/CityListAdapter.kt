@@ -7,10 +7,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.thanht.foodyentrytask.databinding.ItemCityBinding
 
-class CityListAdapter : ListAdapter<CityInfo, CityListHolder>(DIFF_CALLBACK) {
+class CityListAdapter(
+    private val cityListViewModel: CityListViewModel,
+    private val viewLifecycleOwner: LifecycleOwner
+) : ListAdapter<CityInfo, CityListHolder>(DIFF_CALLBACK) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CityListHolder {
         val binding = ItemCityBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return CityListHolder(binding)
+        return CityListHolder(binding, cityListViewModel, viewLifecycleOwner)
     }
 
     override fun onBindViewHolder(holder: CityListHolder, position: Int) {

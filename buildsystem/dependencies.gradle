@@ -55,7 +55,9 @@ ext {
             hilt                 : "com.google.dagger:hilt-android:$hilt_version",
             hiltCompiler         : "com.google.dagger:hilt-android-compiler:$hilt_version",
             hiltViewModel        : "androidx.hilt:hilt-lifecycle-viewmodel:$hiltViewModelVersion",
-            hiltViewModelCompiler: "androidx.hilt:hilt-compiler:$hiltViewModelVersion"
+            hiltViewModelCompiler: "androidx.hilt:hilt-compiler:$hiltViewModelVersion",
+            navFragment          : "androidx.navigation:navigation-fragment-ktx:$nav_version",
+            navUi                : "androidx.navigation:navigation-ui-ktx:$nav_version",
     ]
 
     domainDependencies = [
